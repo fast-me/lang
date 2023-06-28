@@ -35,6 +35,8 @@ export class Project {
   get allContents() {
     return this.files.map((it) => it.contents).join('\n');
   }
+
+  parse() {}
 }
 
 class File {
