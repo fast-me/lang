@@ -34,7 +34,7 @@ export function readModel(
   }
   const m = new Model({
     parent: context,
-    name: names.last,
+    name: names.last!,
     inherits: names.slice(0, -1),
     description,
     alias,

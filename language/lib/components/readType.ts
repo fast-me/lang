@@ -6,12 +6,8 @@ export function readType(
   varName: string,
   optional?: boolean
 ) {
-  if (!source.consumeChar(':'))
-    return new Type({ optional, name: varName, raw: varName });
   const name = source.qualifiedName();
-
   if (!name) {
-    source.addError('Expected name for delimited type');
     return new Type({ optional });
   }
   optional = optional || source.consumeChar('?');

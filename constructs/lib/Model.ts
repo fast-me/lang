@@ -1,7 +1,6 @@
 import { Context, InitContext } from './Context';
 import { Func } from './Function';
 import { Relationship } from './Relationship';
-import { T, Type } from './Type';
 import { Var } from './Var';
 
 export interface Model extends Context {

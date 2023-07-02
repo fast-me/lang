@@ -8,22 +8,18 @@ export function readSScalar(source: SourceFile, context: Context) {
   if (!name) {
     return source.addError(`expected name for sscalar ${name}`);
   }
+  const result: SScalar = { name } as any;
   if (!source.openClosure()) {
     source.addError(`expected open closure for sscalar ${name}`);
   }
-  if (!source.consumeWord('regex')) {
-    source.addError(`Expected regex for sscalar ${name}`);
-    return;
+
+  while (!source.closeClosure()) {
+    if (source.consumeWord('regex')) {
+      result.regex = source.consumeRegex();
+      if (!result.regex) {
+        source.addError(`expected regex for sscalar ${name}`);
+      }
+    }
   }
-  let regex = source.word;
-  source.consumeWord();
-  if (!regex) {
-    source.addError(`Expected regex for sscalar ${name}`);
-    return;
-  }
-  if (!source.closeClosure()) {
-    source.addError('Expcted closing closure for sscalar ${name}');
-  }
-  source.consumeDescription();
-  return new SScalar({ context, name, description, regex });
+  return result;
 }

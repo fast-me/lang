@@ -35,6 +35,10 @@ export class Context {
   functions: Func[] = [];
   models: Model[] = [];
   names: { [key: string]: Definition } = {};
+  get qualifiedName() {
+    if (this.name === 'root') return '';
+    return `${this.parent?.qualifiedName ?? ''}.${this.name}`;
+  }
   constructor({ name, parent, description }: InitContext) {
     this.parent = parent;
     this.name = name;
