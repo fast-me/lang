@@ -7,8 +7,8 @@ const NotWhitespace = /\S+/y;
 const Float = /\d+(\.\d*)?/y;
 const Int = /\d+/y;
 const DescriptionRegex = /```(.(.(?<!```)|\n)*)```/sy;
-const NameRegex = /[a-zA-Z][\w\d]*/y;
-const NameWithDotRegex = /[a-zA-Z][\w\d\.]*/y;
+const NameRegex = /[a-zA-Z][\w\d\-]*/y;
+const NameWithDotRegex = /[a-zA-Z][\w\d\-\.]*/y;
 
 export class SourceFile {
   path: string;
@@ -170,9 +170,7 @@ export class SourceFile {
 
   consumeInt() {
     let match = this.consume(Int);
-    if (match) {
-      return parseInt(match[0]);
-    }
+    if (match) return parseInt(match[0]);
     return undefined;
   }
 

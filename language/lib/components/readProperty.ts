@@ -12,12 +12,19 @@ export function readProperty(source: SourceFile, context: Context) {
   if (source.isNextOpenClosure()) {
     console.log('Reading property implicit');
     switch (_var.type.t) {
-      case T.str: {
-        _var.type.t = T.sscalar;
-        const s = readSScalarWithName(source, context, _var.name, description);
-        _var.type.name = _var.name;
-        _var.type.sscalar = s;
-      }
+      case T.str:
+        {
+          _var.type.t = T.sscalar;
+          const s = readSScalarWithName(
+            source,
+            context,
+            _var.name,
+            description
+          );
+          _var.type.name = _var.name;
+          _var.type.sscalar = s;
+        }
+        break;
       case T.num: {
         _var.type.t = T.nscalar;
         const n = readNScalarWithName(source, context, _var.name, description);

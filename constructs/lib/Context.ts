@@ -56,6 +56,7 @@ export class Context {
       case 'SScalar':
       case 'NScalar':
         this.scalars.push(def as NScalar);
+        console.log('added scalar', def);
         break;
       case 'Struct':
         this.structs.push(def as Struct);

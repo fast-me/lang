@@ -5,6 +5,8 @@ export interface SScalar {
   name: string;
   description?: string;
   regex: string;
+  min?: number;
+  max?: number;
 }
 
 export class SScalar {
@@ -14,11 +16,13 @@ export class SScalar {
       this.name
     );
   }
-  constructor({ context, name, description, regex }: SScalar) {
+  constructor({ context, name, description, regex, min, max }: SScalar) {
     this.context = context;
     this.name = name;
     this.description = description;
     this.regex = regex;
+    this.min = min;
+    this.max = max;
     context.add(this);
   }
 }
