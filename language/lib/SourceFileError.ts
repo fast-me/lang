@@ -5,6 +5,7 @@ export class SourceFileError extends Error {
   index: number;
   line: number;
   col: number;
+  caller: string;
 
   constructor(file: SourceFile, message: string) {
     super(message + ' ' + file.locationString);
@@ -12,6 +13,7 @@ export class SourceFileError extends Error {
     this.index = file.index;
     this.line = file.line;
     this.col = file.col;
+    this.caller = getCallerName();
   }
 
   toJSON() {
@@ -21,6 +23,7 @@ export class SourceFileError extends Error {
       line: this.line,
       col: this.col,
       index: this.index,
+      caller: this.caller,
     };
   }
 }

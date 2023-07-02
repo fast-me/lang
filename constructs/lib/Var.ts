@@ -12,12 +12,6 @@ export interface Var {
 }
 
 export class Var {
-  get qualifiedName() {
-    return (
-      (this.context?.qualifiedName ? this.context.qualifiedName + '.' : '') +
-      this.name
-    );
-  }
   constructor(props: Var) {
     Object.assign(this, props);
     props.context?.add(this);

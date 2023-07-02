@@ -1,44 +1,47 @@
 user {
   username {
-    .regex /[A-Za-z_\-0-9]+/
-    .min 6
-    .max 25
+    regex /[A-Za-z_\-0-9]+/
+    min 6
+    max 25
   }
   first-name {
-    .regex /[A-Za-z]/
-    .min 2
-    .max 25
+    regex /[A-Za-z]/
+    min 2
+    max 25
   }
   middle-name str?
   last-name {
-    .regex /[A-Za-z]/
-    .min 2
-    .max 25
+    regex /[A-Za-z]/
+    min 2
+    max 25
   }
 
   ssn secstr? {
-    .display 3-2-4
+    display 3-2-4
   }
   
   kyc-complete bool?
   kyc reflects
 
-  emails // implied entity list
-    .default
-    .verified
-    .subdocument
-    .sort last-used // implies list selected last_selected field
+  emails {
+    default
+    verified
+    subdocument
+    sort last-used // implies list selected last_selected field
+  }
 
-  phones
-    .subdocument
-    .default
-    .verified
-    .sort last_used
-  addresses
-    .subdocument
-    .default
-    .opt-verified
-    .sort last-used
+  phones {
+    subdocument
+    default
+    verified
+    sort last_used
+  }
+  addresses {
+    subdocument
+    default
+    opt-verified
+    sort last-used
+  }
 }
   
 struct address {

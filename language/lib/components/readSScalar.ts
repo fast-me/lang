@@ -1,5 +1,14 @@
 import { Context, SScalar } from 'constructs';
 import { SourceFile } from '../SourceFile';
+import { Literal, readLiteral } from './readLiteral';
+const SScalarLiteral: Literal = {
+  name: 'sscalar',
+  properties: [
+    { name: 'regex', type: 'regex', optional: true },
+    { name: 'min', type: 'number', optional: true },
+    { name: 'max', type: 'number', optional: true },
+  ],
+};
 
 export function readSScalar(source: SourceFile, context: Context) {
   const description = source.description();
@@ -8,18 +17,20 @@ export function readSScalar(source: SourceFile, context: Context) {
   if (!name) {
     return source.addError(`expected name for sscalar ${name}`);
   }
-  const result: SScalar = { name } as any;
-  if (!source.openClosure()) {
-    source.addError(`expected open closure for sscalar ${name}`);
-  }
+  source.consumeDescription();
+  return readSScalarWithName(source, context, name, description);
+}
 
-  while (!source.closeClosure()) {
-    if (source.consumeWord('regex')) {
-      result.regex = source.consumeRegex();
-      if (!result.regex) {
-        source.addError(`expected regex for sscalar ${name}`);
-      }
-    }
-  }
-  return result;
+export function readSScalarWithName(
+  source: SourceFile,
+  context: Context,
+  name: string,
+  description: string | undefined
+) {
+  return new SScalar({
+    ...readLiteral(SScalarLiteral, source),
+    context,
+    name,
+    description,
+  });
 }

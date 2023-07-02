@@ -4,8 +4,8 @@ import { AtLeastOne, atLeastOne } from '../utils/atLeastOne';
 import { readEnum } from './readEnum';
 import { readFunc } from './readFunc';
 import { readNScalar } from './readNScalar';
+import { readProperty } from './readProperty';
 import { readSScalar } from './readSScalar';
-import { readVar } from './readVar';
 
 function readModelName(source: SourceFile) {
   if (source.word !== 'alias') return source.name();
@@ -22,16 +22,15 @@ export function readModel(
     source.consumeWord('entity')
   ) {
     console.log('consume entity');
+  } else if (!context.isRoot) {
+    return;
   }
-  console.log('read model');
   const description = source.description();
   let names = atLeastOne('name', readModelName, source);
   let alias: AtLeastOne<string> | undefined = source.consumeWord('alias')
     ? atLeastOne('alias', readModelName, source)
     : undefined;
   if (!names) return;
-  if (source.openClosure()) {
-  }
   const m = new Model({
     parent: context,
     name: names.last!,
@@ -40,11 +39,6 @@ export function readModel(
     alias,
   });
   source.consumeDescription();
-  m.inherits = names.slice(0, -1);
-  m.alias =
-    (source.consumeWord('alias')
-      ? atLeastOne('name', readModelName, source)
-      : undefined) || [];
   if (!source.openClosure())
     return source.addError(`Expected closure start in concept`);
 
@@ -77,8 +71,8 @@ export function readModel(
     }
 
     let pk = source.consumeWord('pk');
-    let uniq = !!source.consume(/unique|uniq/);
-    const _var = readVar(source, m);
+    let uniq = !!source.consume(/unique|uniq/y);
+    const _var = readProperty(source, m);
     if (_var) {
       if (_static) m.staticProperties.push(_var);
       if (pk) m.pk = _var;

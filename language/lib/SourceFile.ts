@@ -132,6 +132,10 @@ export class SourceFile {
     return this.consumeChar('{');
   }
 
+  isNextOpenClosure() {
+    return this.firstChar === '{';
+  }
+
   closeClosure() {
     return this.consumeChar('}');
   }
@@ -142,6 +146,12 @@ export class SourceFile {
 
   closeParens() {
     return this.consumeChar(')');
+  }
+
+  consumeRegexLiteral() {
+    const match = this.consume(/\/(.(?<!\\)|\\.)+\/[a-z]*/y);
+    if (!match) return undefined;
+    return match[0];
   }
 
   consumeBoolean() {
@@ -164,6 +174,10 @@ export class SourceFile {
       return parseInt(match[0]);
     }
     return undefined;
+  }
+
+  consumeNumber() {
+    return this.consumeFloat() || this.consumeInt();
   }
 
   description(): string | undefined {
