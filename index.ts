@@ -1,19 +1,17 @@
+import { Project } from 'language';
 import { join } from 'path';
-import { Project } from './project';
+import './std';
 
 async function start() {
-  console.log('Start Lang');
-  const dir = 'fast';
-  const project = new Project(join(process.cwd(), dir));
-  console.log('Reading project');
-  await project.readFiles();
+  const project = new Project(join(process.cwd(), 'fast'));
+  await project.read();
   await project.parse();
-  console.log(project.allContents);
+  await project.output();
 }
 
 start()
   .then((res) => {
-    console.log('Completed', res);
+    console.log('Completed');
   })
   .catch((err) => {
     console.error(err);

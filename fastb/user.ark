@@ -1,24 +1,20 @@
-user {
-  username {
+entity user {
+  username
     .regex /[A-Za-z_\-0-9]+/
     .min 6
     .max 25
-  }
-  first-name {
+  first-name
     .regex /[A-Za-z]/
     .min 2
     .max 25
-  }
   middle-name str?
-  last-name {
+  last-name
     .regex /[A-Za-z]/
     .min 2
     .max 25
-  }
 
-  ssn secstr? {
+  ssn secstr?
     .display 3-2-4
-  }
   
   kyc-complete bool?
   kyc reflects

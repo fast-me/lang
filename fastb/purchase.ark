@@ -1,0 +1,80 @@
+scalar num percent
+  .min 0
+  .max 100
+  *(other) = (this / 100.0) * other
+  fn display() = "${this}%"
+  fn parse(str) = str.slice(0, -1)
+
+entity discount {
+  amount num
+  multiplier 1
+  kind = flat
+  fn apply(num)
+    num - amount 
+  >>
+    kind = bogo
+    count uint
+    multiplier = (#quantity // count)
+  >>
+    kind = whenyoubuy
+    minimum uint
+    multiplier = (#quantity > minimum) 
+  >>
+    kind = percent
+    amount percent
+    fn apply(num)
+      num * amount.inverted
+}
+
+
+
+i chargeable {
+    amount num
+    discounts
+    fees
+    total >
+      amount +
+        fees.amount >-
+        discounts >+
+        taxes
+}
+
+e chargeable purchase {
+  users as buyers reflects purchases
+  s chargeable item {
+    product
+    quantity
+    shipping-address
+    amount > product.amount * quantity
+  }
+  items
+  billing-address
+  tip
+  payments
+  struct refunds {
+    payment-method
+    amount
+    status enum pending, completed, cancelled = pending
+    transaction
+  }
+  net >
+    payments.amount >-
+    refunds.amount
+}
+
+entity fee {
+  name
+  code
+  country
+  description
+
+  account
+}
+
+entity fee tax {
+  city?
+  state?
+  country
+}
+
+scalar number amount

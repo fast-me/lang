@@ -1,0 +1,11 @@
+
+enum review-status
+  submitted
+  approved
+  declined
+  in-review
+
+kyc
+
+kyb
+  

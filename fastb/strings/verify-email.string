@@ -1,0 +1,9 @@
+Hello {{user.colloquial-name}}
+
+Please verify your email by clicking this {{url}}. You will then be redirected to Fast {{user.currentProduct.name}}.
+
+This link will expire in 24 hours.
+
+Sincerely,
+
+The Fast Team

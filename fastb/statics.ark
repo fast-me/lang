@@ -1,0 +1,16 @@
+static company
+  name = 'fast'
+
+static urls
+
+  domain = 'instabit.me'
+
+  fn p(path) 
+    '${domain}${path}'
+  
+  fn verify-phone(code) 
+    p('/auth/verify-phone/${code}')
+  
+  fn verify-email(code)
+    p('/auth/verify-email/${code}')
+  

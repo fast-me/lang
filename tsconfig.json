@@ -16,6 +16,10 @@
     "noEmit": true,
     "types": [
       "bun-types" // add Bun global
-    ]
+    ],
+    "paths": {
+      "language": ["./language/index.ts"],
+      "constructs": ["./constructs/index.ts"]
+    }
   }
 }

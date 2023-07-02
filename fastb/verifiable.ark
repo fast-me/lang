@@ -1,0 +1,21 @@
+verifiable
+  verified bool?
+  alias verification-code str?
+
+  required fn send-verification(code)
+
+  after create
+    verify()
+
+  fn verify
+    verification-code = random.otp(6)
+    send-verification(verification-code)
+    save()
+  
+  static do-verify(code)
+    item = get(code)
+    if (!item) throw 'Authorization code expired' 
+    delete item.verification-code
+    item.user = user
+    item.verified = true
+    item.save()

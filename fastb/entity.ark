@@ -1,0 +1,49 @@
+signer
+	is entity
+	has wallets
+		has id
+		has address
+		has network
+		has accounts
+
+asset 
+	has name
+	has icon
+	has symbol
+	has ticker
+	can have data
+	can be fractional
+	has total supply
+	can be distinct
+
+fractional
+	has fractional limit
+
+entity account
+	has asset
+	has balance
+	has transactions as outgoing and incoming transactions
+	has outgoing transactions where transaction.from is wallet
+	has incoming transactions where transaction.transfers.to is wallet 
+
+type balance 
+	is number
+	needs asset
+	when asset is fractional
+		has decimal
+			size is fractional limit
+
+entity transaction
+	has wallet as from
+	has timestamp
+	has taxes
+		has balance
+		has asset
+	has costs
+		has balance
+		has asset
+	has transfers
+		has asset
+		has balance
+		has wallet as to
+

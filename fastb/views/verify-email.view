@@ -1,0 +1,14 @@
+<col>
+  <row p='$4'>
+    <image
+      src={asset('logo').url}
+      h='$4'
+      aspect />
+  <p p='$4'>
+    Hello ${user.first-name || user.username},
+    
+    Please verify your email by clicking this <link href={url}>link</link>. You will then be redirected to the challenge.
+
+    This link will expire in 24 hours.
+  </p>
+</col>

@@ -1,0 +1,23 @@
+struct country {
+  name
+  abbr
+  pk iso
+  flag-emoji
+  flag-svg
+  states reflects
+  cities reflects
+  phone-codes ints 
+}
+
+struct state {
+  name
+  abbr
+  cities reflects many
+}
+
+city {
+  name
+  loc
+  state
+  country
+}

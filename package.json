@@ -2,6 +2,9 @@
   "name": "lang",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "watch": "bun --watch index.ts"
+  },
   "devDependencies": {
     "bun-types": "latest"
   },

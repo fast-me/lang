@@ -1,0 +1,16 @@
+phone 
+  is verifiable
+  user reflects many
+  country-code int
+  pk number e164
+
+  alias auth-code
+
+  default bool?
+
+  send-verification(code)
+    sms.send(number, 'This is your ${company.name} verification code: ${code}')
+  
+  scalar string e164
+    regex ^\+[1-9]\d{1,14}$
+  
