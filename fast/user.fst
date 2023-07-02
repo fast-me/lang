@@ -15,10 +15,6 @@ user {
     min 2
     max 25
   }
-
-  ssn secstr? {
-    display 3-2-4
-  }
   
   kyc-complete bool?
   kyc reflects

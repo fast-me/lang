@@ -16,4 +16,12 @@ export class Var {
     Object.assign(this, props);
     props.context?.add(this);
   }
+
+  static identifier(context: Context) {
+    return new Var({
+      name: 'id',
+      type: Type.identifier(),
+      many: false,
+    });
+  }
 }

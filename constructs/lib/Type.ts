@@ -83,4 +83,12 @@ export class Type {
   static get string() {
     return new Type();
   }
+
+  static identifier() {
+    return new Type({
+      name: 'id',
+      t: T.str,
+      raw: 'id',
+    });
+  }
 }

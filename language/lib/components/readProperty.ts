@@ -10,7 +10,6 @@ export function readProperty(source: SourceFile, context: Context) {
   if (!_var) return undefined;
   source.consumeDescription();
   if (source.isNextOpenClosure()) {
-    console.log('Reading property implicit');
     switch (_var.type.t) {
       case T.str:
         {

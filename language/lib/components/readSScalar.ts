@@ -7,6 +7,7 @@ const SScalarLiteral: Literal = {
     { name: 'regex', type: 'regex', optional: true },
     { name: 'min', type: 'number', optional: true },
     { name: 'max', type: 'number', optional: true },
+    { name: 'display', type: 'expr', optional: true },
   ],
 };
 

@@ -4,6 +4,7 @@ declare global {
     compactMap<O>(fn: (it: T) => O | null | undefined): O[];
     first: T | undefined;
     last: T | undefined;
+    insertBetween<V>(val: V): (V | T)[];
   }
 }
 
@@ -29,3 +30,17 @@ Object.defineProperties(Array.prototype, {
     },
   },
 });
+
+Array.prototype.insertBetween = function insertBetween<T, V>(
+  this: T[],
+  val: V
+) {
+  const ret: (V | T)[] = [];
+  for (let i = 0; i < this.length; i++) {
+    ret.push(this[i]);
+    if (i + 1 !== this.length) {
+      ret.push(val);
+    }
+  }
+  return ret;
+};

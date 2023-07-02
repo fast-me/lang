@@ -37,7 +37,6 @@ export function readLiteral(construct: Literal, source: SourceFile) {
             {
               const number = source.consumeNumber();
 
-              console.log('reading property literal ', property.name, number);
               if (!number) {
                 source.addError(
                   `expected number for literal ${construct.name}.${property.name}`
@@ -88,6 +87,5 @@ export function readLiteral(construct: Literal, source: SourceFile) {
       );
     }
   }
-  console.log('Return property literaly', ret);
   return ret;
 }
