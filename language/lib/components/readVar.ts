@@ -5,16 +5,19 @@ import { readType } from './readType';
 
 export function readVar(
   source: SourceFile,
-  context?: Context,
+  context: Context,
   name?: string,
-  description?: string
+  description?: string,
+  abstract?: boolean
 ): Var | undefined {
   let readonly = source.consumeWord('const');
   if (name === undefined) name = source.qualifiedName();
   if (!name) return undefined;
   let optional = source.consumeChar('?');
   const type = readType(source, name, optional);
-  const value = source.consumeChar('=') ? getExpression(source) : undefined;
+  const value = source.consumeChar('=')
+    ? getExpression(source, context)
+    : undefined;
   return new Var({
     context: context,
     name,
@@ -22,5 +25,6 @@ export function readVar(
     type,
     value,
     readonly,
+    abstract,
   });
 }

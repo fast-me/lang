@@ -1,5 +1,6 @@
 import { readFile } from 'fs/promises';
 import { SourceFileError } from './SourceFileError';
+import { basename } from 'path';
 
 const Whitespace = /\s+/y;
 const NewLine = /\n/g;
@@ -12,6 +13,7 @@ const NameWithDotRegex = /[a-zA-Z][\w\d\-\.]*/y;
 
 export class SourceFile {
   path: string;
+  fileName: string;
   index = 0;
   line = 1;
   col = 1;
@@ -31,6 +33,7 @@ export class SourceFile {
 
   constructor(path: string) {
     this.path = path;
+    this.fileName = basename(path);
   }
 
   async read() {
@@ -68,8 +71,19 @@ export class SourceFile {
     }
   }
 
-  consumeWord(word?: string) {
-    if (word && this.word !== word) return false;
+  consumeWord(word?: string, allowPartial = false) {
+    if (word) {
+      if (allowPartial) {
+        if (this.startsWith(word)) {
+          this.move(word.length);
+          this.toNextReal();
+          return true;
+        }
+        return false;
+      } else if (this.word !== word) {
+        return false;
+      }
+    }
     if (this.word) {
       this.move(this.word.length);
       this.toNextReal();

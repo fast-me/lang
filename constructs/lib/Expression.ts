@@ -1,3 +1,4 @@
+import { Model } from './Model';
 import { Var } from './Var';
 
 export enum Compound {
@@ -35,6 +36,7 @@ export type Expression =
       fn: Reference;
       inputs: Expression[];
     }
+  | { type: 'import'; package: string; interface?: Model }
   | { type: 'assign'; value: Expression; to: Expression }
   | { type: 'compare'; left: Expression; right: Expression }
   | { type: 'return'; value?: Expression; exec?: Expression };

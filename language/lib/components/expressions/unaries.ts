@@ -1,4 +1,4 @@
-import { Expression, Math, Reference } from 'constructs';
+import { Context, Expression, Math, Reference } from 'constructs';
 import { SourceFile } from '../../SourceFile';
 import { readVar } from '../readVar';
 
@@ -45,7 +45,8 @@ export function prefix(source: SourceFile): Expression | undefined {
 
 export function postfix(
   source: SourceFile,
-  ref: Reference
+  ref: Reference,
+  context: Context
 ): Expression | undefined {
   const mathUnaryPostfix = MathUnaryKeys.find((it) => source.startsWith(it));
   if (!mathUnaryPostfix || source.input[source.index - 1].isWhitespace) return;

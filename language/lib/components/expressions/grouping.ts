@@ -1,10 +1,13 @@
-import { Expression } from 'constructs';
+import { Context, Expression } from 'constructs';
 import { SourceFile } from '../../SourceFile';
 import { getExpression } from './getExpression';
 
-export function grouping(source: SourceFile): Expression | undefined {
+export function grouping(
+  source: SourceFile,
+  context: Context
+): Expression | undefined {
   if (source.openParens()) {
-    const expr = getExpression(source);
+    const expr = getExpression(source, context);
     if (!expr) {
       return source.addError(`Expected valid expression after input open`);
     }

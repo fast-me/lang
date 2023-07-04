@@ -46,6 +46,13 @@ export class Context {
     this.parent = parent;
     this.name = name;
     this.description = description;
+    if (this.isRoot) {
+      this.declareRootVars();
+    }
+  }
+
+  private declareRootVars() {
+    this.vars.push();
   }
 
   add(def: Definition) {

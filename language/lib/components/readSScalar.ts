@@ -13,7 +13,7 @@ const SScalarLiteral: Literal = {
 
 export function readSScalar(source: SourceFile, context: Context) {
   const description = source.description();
-  if (!source.consumeWord('nscalar')) return;
+  if (!source.consumeWord('sscalar')) return;
   const name = source.name();
   if (!name) {
     return source.addError(`expected name for sscalar ${name}`);

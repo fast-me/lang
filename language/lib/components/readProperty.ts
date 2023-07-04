@@ -4,9 +4,13 @@ import { readNScalarWithName } from './readNScalar';
 import { readSScalarWithName } from './readSScalar';
 import { readVar } from './readVar';
 
-export function readProperty(source: SourceFile, context: Context) {
+export function readProperty(
+  source: SourceFile,
+  context: Context,
+  abstract: boolean = false
+) {
   const description = source.description();
-  const _var = readVar(source, context, undefined, description);
+  const _var = readVar(source, context, undefined, description, abstract);
   if (!_var) return undefined;
   source.consumeDescription();
   if (source.isNextOpenClosure()) {

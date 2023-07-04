@@ -39,41 +39,62 @@ export function readModel(
     alias,
   });
   source.consumeDescription();
+}
+
+export function readModelContents(
+  source: SourceFile,
+  m: Model,
+  _interface: boolean = false
+): Model | undefined {
   if (!source.openClosure())
     return source.addError(`Expected closure start in concept`);
 
   while (!source.closeClosure()) {
+    console.log('Loop', m.name, source.word);
     const nscalar = readNScalar(source, m);
     if (nscalar) {
+      console.log('Read nscalar');
       continue;
     }
+    console.log('Try sscalar');
     const sscalar = readSScalar(source, m);
     if (sscalar) {
+      console.log('Read sscalar');
       m.add(sscalar);
       continue;
     }
+    console.log('try enum');
     const enuM = readEnum(source, m);
     if (enuM) {
+      console.log('Read Enum');
       m.add(enuM);
       continue;
     }
+    console.log('try concept');
     const concept = readModel(source, m);
     if (concept) {
+      console.log('Read model');
       m.models.push(concept);
       continue;
     }
+    console.log('try func');
+    const abstract = source.consumeWord('abstract') || _interface;
     const _static = source.consumeWord('static');
-    const func = readFunc(source, m, true);
+    console.log('Start read func');
+    const func = readFunc(source, m, true, abstract);
     if (func) {
+      console.log('Read func', func.name);
       if (_static) m.staticFunctions.push(func);
       else m.functions.push(func);
       continue;
     }
 
+    console.log('Start read property');
     let pk = source.consumeWord('pk');
     let uniq = !!source.consume(/unique|uniq/y);
-    const _var = readProperty(source, m);
+    const _var = readProperty(source, m, abstract);
     if (_var) {
+      console.log('Read property');
       if (_static) m.staticProperties.push(_var);
       if (pk) m.pk = _var;
       if (uniq) m.uniques.push(_var);

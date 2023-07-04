@@ -1,4 +1,6 @@
+import { Context } from './Context';
 import { Enum } from './Enum';
+import { Func } from './Function';
 import { Model } from './Model';
 import { NScalar } from './NScalar';
 import { SScalar } from './SScalar';
@@ -84,11 +86,14 @@ export class Type {
     return new Type();
   }
 
-  static identifier() {
+  static identifier(context: Context) {
     return new Type({
-      name: 'id',
-      t: T.str,
-      raw: 'id',
+      name: 'identifier',
+      t: T.sscalar,
+      optional: false,
+      sscalar: context.scalars.find(
+        (it) => it.name === 'identifier'
+      ) as SScalar,
     });
   }
 }

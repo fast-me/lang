@@ -1,4 +1,4 @@
-import { Expression } from 'constructs';
+import { Context, Expression } from 'constructs';
 import { SourceFile } from '../../SourceFile';
 
 const LiteralKeywords = {
@@ -8,7 +8,10 @@ const LiteralKeywords = {
   false: 'false',
 } as const;
 
-export function literalKeyword(source: SourceFile): Expression | undefined {
+export function literalKeyword(
+  source: SourceFile,
+  context: Context
+): Expression | undefined {
   const literal = source.consumeHash(LiteralKeywords);
   if (literal) {
     switch (literal) {

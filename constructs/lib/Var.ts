@@ -9,6 +9,7 @@ export interface Var {
   value?: Expression;
   readonly?: boolean;
   description?: string;
+  abstract?: boolean;
 }
 
 export class Var {
@@ -20,8 +21,12 @@ export class Var {
   static identifier(context: Context) {
     return new Var({
       name: 'id',
-      type: Type.identifier(),
-      many: false,
+      type: Type.identifier(context),
+      value: {
+        type: 'invocation',
+        fn: { name: 'newIdentifier', properties: [] },
+        inputs: [],
+      },
     });
   }
 }

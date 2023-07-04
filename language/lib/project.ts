@@ -4,6 +4,7 @@ import { SourceFile } from './SourceFile';
 import { Context } from 'constructs';
 import { readSource } from './components/readSource';
 import { writeFile, rm } from 'fs/promises';
+import { Runtime } from '../../constructs/lib/Runtime';
 
 const ignores = ['.ds_store', 'output'];
 export class Project {
@@ -11,7 +12,7 @@ export class Project {
   schemas: SourceFile[] = [];
   views: SourceFile[] = [];
   stringFiles: SourceFile[] = [];
-  root = new Context({ name: 'root' });
+  runtime = new Runtime();
   get errors() {
     return this.schemas.flatMap((it) => it.errors);
   }
@@ -74,9 +75,34 @@ export class Project {
     this.stringFiles.push(_file);
   }
 
+  get std() {
+    return {
+      schemas: this.schemas.filter((it) => it.path.includes('/std/')),
+      views: this.views.filter((it) => it.path.includes('/std/')),
+      stringFiles: this.stringFiles.filter((it) => it.path.includes('/std/')),
+    };
+  }
+
+  get nonStd() {
+    return {
+      schemas: this.schemas.filter((it) => !it.path.includes('/std/')),
+      views: this.views.filter((it) => !it.path.includes('/std/')),
+      stringFiles: this.stringFiles.filter((it) => !it.path.includes('/std/')),
+    };
+  }
+
   async parse() {
-    for (const f of this.schemas) {
-      await readSource(this.root, f);
+    await this._parse(this.std);
+    await this._parse(this.nonStd);
+  }
+
+  async _parse(files: {
+    schemas: SourceFile[];
+    views: SourceFile[];
+    stringFiles: SourceFile[];
+  }) {
+    for (const f of files.schemas) {
+      await readSource(this.runtime.app, f);
     }
   }
 
@@ -86,7 +112,7 @@ export class Project {
   }
 
   async outputConcepts() {
-    await this.outputFile('concepts.json', stringify(this.root));
+    await this.outputFile('concepts.json', stringify(this.runtime));
   }
 
   async outputErrors() {
