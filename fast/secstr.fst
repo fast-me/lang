@@ -1,4 +1,4 @@
-const argon2 = import("argon2") {
+const argon2 = import(argon2) {
   fn hash(str): str
   fn verify(hash, str): boolean
 }
