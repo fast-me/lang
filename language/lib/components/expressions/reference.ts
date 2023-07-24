@@ -2,12 +2,9 @@ import { Reference } from 'constructs';
 import { SourceFile } from '../../SourceFile';
 
 export function reference(source: SourceFile): Reference | undefined {
-  let names = source.qualifiedName()?.split('.');
-  if (!names) return undefined;
-  let name = names.first;
-  let properties = names.slice(1);
+  let name = source.qualifiedName();
+  if (!name) return undefined;
   return {
     name,
-    properties,
   };
 }

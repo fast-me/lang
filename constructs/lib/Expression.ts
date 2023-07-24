@@ -17,7 +17,6 @@ export enum Math {
 
 export type Reference = {
   name: string;
-  properties: string[];
 };
 
 export type Expression =
@@ -39,4 +38,5 @@ export type Expression =
   | { type: 'import'; package: string; interface?: Model }
   | { type: 'assign'; value: Expression; to: Expression }
   | { type: 'compare'; left: Expression; right: Expression }
-  | { type: 'return'; value?: Expression; exec?: Expression };
+  | { type: 'return'; value?: Expression; exec?: Expression }
+  | { type: 'object'; properties: { name: string; value: Expression }[] };
