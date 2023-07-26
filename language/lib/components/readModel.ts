@@ -1,4 +1,4 @@
-import { Context, Model } from 'constructs';
+import { Context, Model, Struct } from 'constructs';
 import type { SourceFile } from '../SourceFile';
 import { AtLeastOne, atLeastOne } from '../utils/atLeastOne';
 import { readEnum } from './readEnum';
@@ -16,10 +16,13 @@ export function readModel(
   context: Context
 ): Model | undefined {
   if (!source.toNextReal()) return;
+  let struct = source.consumeWord('struct');
+  if (struct) console.log('Reading struct');
   if (
     source.consumeWord('model') ||
     source.consumeWord('concept') ||
-    source.consumeWord('entity')
+    source.consumeWord('entity') ||
+    struct
   ) {
     console.log('consume entity');
   } else if (!context.isRoot) {
@@ -31,7 +34,7 @@ export function readModel(
     ? atLeastOne('alias', readModelName, source)
     : undefined;
   if (!names) return;
-  const m = new Model({
+  const m = new (struct ? Struct : Model)({
     parent: context,
     name: names.last!,
     inherits: names.slice(0, -1),
@@ -39,6 +42,7 @@ export function readModel(
     alias,
   });
   source.consumeDescription();
+  return readModelContents(source, m);
 }
 
 export function readModelContents(
@@ -48,7 +52,6 @@ export function readModelContents(
 ): Model | undefined {
   if (!source.openClosure())
     return source.addError(`Expected closure start in concept`);
-
   while (!source.closeClosure()) {
     console.log('Loop', m.name, source.word);
     const nscalar = readNScalar(source, m);

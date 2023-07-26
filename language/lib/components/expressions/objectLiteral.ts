@@ -1,7 +1,6 @@
 import { Context, Expression } from 'constructs';
 import { SourceFile } from '../../SourceFile';
 import { readVar } from '../readVar';
-import { string } from './string';
 import { getSingularExpression } from './getSingularExpression';
 
 export function objectLiteral(

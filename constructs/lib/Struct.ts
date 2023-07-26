@@ -1,9 +1,8 @@
-import { Context, InitContext } from './Context';
+import { Model, ModelInit } from './Model';
 
-export class Struct extends Context {
-  override parent!: Context;
-  constructor(props: InitContext & { parent: Context }) {
+export class Struct extends Model {
+  struct = true;
+  constructor(props: ModelInit) {
     super(props);
-    props.parent?.add(this);
   }
 }

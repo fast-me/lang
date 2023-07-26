@@ -13,6 +13,7 @@ export interface Model extends Context {
   staticProperties: Var[];
   staticFunctions: Func[];
 }
+export type ModelInit = Partial<Model> & InitContext & { parent: Context };
 
 export class Model extends Context {
   constructor({
@@ -22,7 +23,7 @@ export class Model extends Context {
     staticFunctions = [],
     staticProperties = [],
     ...rest
-  }: Partial<Model> & InitContext & { parent: Context }) {
+  }: ModelInit) {
     super(rest);
     this.inherits = inherits;
     this.alias = alias;

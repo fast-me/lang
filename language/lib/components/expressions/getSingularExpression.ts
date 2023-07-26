@@ -7,12 +7,14 @@ import { number } from './number';
 import { string } from './string';
 import { referenceOrInvocation } from './variableOrInvocation';
 import { _import } from './import';
+import { objectLiteral } from './objectLiteral';
 
 export function getSingularExpression(
   source: SourceFile,
   context: Context
 ): Expression | undefined {
   return (
+    objectLiteral(context, source) ||
     not(source, context) ||
     literalKeyword(source, context) ||
     grouping(source, context) ||
