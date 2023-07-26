@@ -1,14 +1,14 @@
 const argon2 = import(argon2) {
-  fn hash(str): str
-  fn verify(hash, str): boolean
+  fn async hash(str): str
+  fn async verify(hash, str): bool
 }
 
-sscalar hashed {
-  fn seralizeDb() {
-    await argon2.hash(this)
+behavior hashed {
+  fn db-serialize() {
+    argon2.hash(this)
   }
-  fn compare(value) {
-    await argon2.verify()
+  fn db-==(value) {
+    argon2.verify(this, value)
   }
 }
 

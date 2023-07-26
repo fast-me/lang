@@ -6,6 +6,7 @@ export interface Func extends Context {
   statements: Expression[];
   parent: Context;
   return?: Type;
+  async?: boolean;
 }
 
 export class Func extends Context {
@@ -14,11 +15,12 @@ export class Func extends Context {
       statements?: Expression[];
       parent: Context;
       return?: Type;
+      async?: boolean;
     }
   ) {
     super(props);
     this.statements = props.statements ?? [];
     this.return = props.return;
-    props.parent?.add(this);
+    this.async = props.async;
   }
 }

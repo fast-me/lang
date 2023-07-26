@@ -14,20 +14,26 @@ export function readFunc(
 ): Func | undefined {
   const description = source.description();
   if (!source.consume(FnRegex)) return undefined;
+  const async = source.consumeWord('async');
   source.description();
   const name = source.name();
   if (nameRequired && !name)
     return source.addError(`Expected Identifier for Fn declaration`);
-  const func = new Func({ name: name ?? '', description, parent: context });
-  if (!source.openParens())
-    return source.addError(`Expected open inputs (() for fn declaration`);
-  let input;
-  while ((input = readVar(source, context))) {
-    func.add(input);
-    source.consumeChar(',');
+  const func = new Func({
+    name: name ?? '',
+    description,
+    parent: context,
+    async,
+  });
+  if (source.openParens()) {
+    let input;
+    while ((input = readVar(source, func))) {
+      func.add(input);
+      source.consumeChar(',');
+    }
+    if (!source.closeParens())
+      source.addError(`Expected close input ()) for fn declaration`);
   }
-  if (!source.closeParens())
-    source.addError(`Expected close input ()) for fn declaration`);
   console.log('Read arguments');
   if (source.consumeChar(':')) {
     const type = readType(source, 'return');
