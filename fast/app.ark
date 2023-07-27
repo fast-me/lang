@@ -2,6 +2,5 @@
 const app = o{
   name: 'Fast'
   domain: 'fastapps.one'
-  tx-email: 'hi@${app.domain}'
-  tx-email-contact: 'Fast <${app.tx-email}>'
+  tx-email: 'hi@${domain}'
 }

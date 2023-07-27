@@ -39,4 +39,9 @@ export type Expression =
   | { type: 'assign'; value: Expression; to: Expression }
   | { type: 'compare'; left: Expression; right: Expression }
   | { type: 'return'; value?: Expression; exec?: Expression }
-  | { type: 'object'; properties: { name: string; value: Expression }[] };
+  | { type: 'object'; properties: { name: string; value: Expression }[] }
+  | {
+      type: 'if';
+      branches: { condition: Expression; statements: Expression[] }[];
+      else?: Expression[];
+    };

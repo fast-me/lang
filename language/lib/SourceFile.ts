@@ -84,7 +84,7 @@ export class SourceFile {
         return false;
       }
     }
-    if (this.word) {
+    if (this.word === word) {
       this.move(this.word.length);
       this.toNextReal();
       return true;
