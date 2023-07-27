@@ -41,7 +41,7 @@ export function readFunc(
       source.addError(`Expected type after : for fn declaration return`);
     else func.return = type;
   }
-  console.log('Read type');
+  console.log('Read type', name);
   if (!source.openClosure()) {
     if (!abstract)
       source.addError('Expected closure open { for fn declaration');

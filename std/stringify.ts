@@ -10,7 +10,7 @@ global.stringify = function stringify(value) {
     function (key, val) {
       if (val != null && typeof val == 'object') {
         if (seen.indexOf(val) >= 0) {
-          return;
+          return val.id;
         }
         seen.push(val);
       }

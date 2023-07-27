@@ -1,11 +1,11 @@
 
 
 struct urls {
-  static verify-email(code) {
+  static fn verify-email(code) {
     `/email/verify/${code}`
   }
 
-  static verify-phone(code) {
+  static fn verify-phone(code) {
     `/phone/verify/${code}`
   }
 }

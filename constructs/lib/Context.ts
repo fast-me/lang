@@ -37,8 +37,9 @@ export class Context {
   models: Model[] = [];
   names: { [key: string]: Definition } = {};
   get qualifiedName(): string {
-    if (this.name === 'root') return '';
-    return `${this.parent?.qualifiedName ?? ''}.${this.name}`;
+    if (this.isRoot) return '';
+    const p = this.parent?.qualifiedName ?? '';
+    return p ? `${p}.${this.name}` : this.name;
   }
   isRoot?: boolean;
   constructor({ name, parent, description, root }: InitContext) {

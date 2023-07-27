@@ -1,4 +1,4 @@
-user {
+concept user {
   username {
     regex /[A-Za-z_\-0-9]+/
     min 6
