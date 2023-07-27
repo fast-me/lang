@@ -1,11 +1,7 @@
 
 
 struct urls {
-  static fn verify-email(code) {
-    '/email/verify/${code}'
-  }
-
-  static fn verify-phone(code) {
-    '/phone/verify/${code}'
+  static fn verify(entity, code) {
+    '/${entity}/verify/${code}'
   }
 }
