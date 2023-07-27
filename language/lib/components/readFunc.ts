@@ -47,6 +47,7 @@ export function readFunc(
       source.addError('Expected closure open { for fn declaration');
   } else {
     while (!source.closeClosure()) {
+      console.log('closure loop');
       const expr = getExpression(source, context);
       if (expr) func.statements.push(expr);
       else {
