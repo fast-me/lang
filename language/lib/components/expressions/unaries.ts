@@ -10,7 +10,10 @@ const MathUnaries = {
 } as const;
 const MathUnaryKeys = Object.keys(MathUnaries) as (keyof typeof MathUnaries)[];
 
-export function prefix(source: SourceFile): Expression | undefined {
+export function prefix(
+  source: SourceFile,
+  context: Context
+): Expression | undefined {
   const mathUnaryPrefix = MathUnaryKeys.find((it) => source.startsWith(it));
   if (!mathUnaryPrefix) return;
   source.move(mathUnaryPrefix.length);
@@ -20,7 +23,7 @@ export function prefix(source: SourceFile): Expression | undefined {
     return source.addError(
       `Expected var identifier for ${op} unary prefix (${mathUnaryPrefix}) operator`
     );
-  const variable = readVar(source, undefined, id);
+  const variable = readVar(source, context, id);
   if (!variable) {
     return source.addError(
       `Unable to resolve reference for ${op} unary prefix (${mathUnaryPrefix}) operator`

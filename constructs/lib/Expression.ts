@@ -40,8 +40,13 @@ export type Expression =
   | { type: 'compare'; left: Expression; right: Expression }
   | { type: 'return'; value?: Expression; exec?: Expression }
   | { type: 'object'; properties: { name: string; value: Expression }[] }
+  | { type: 'splat'; ref: Reference }
   | {
       type: 'if';
       branches: { condition: Expression; statements: Expression[] }[];
       else?: Expression[];
+    }
+  | {
+      type: 'array';
+      entries: Expression[];
     };

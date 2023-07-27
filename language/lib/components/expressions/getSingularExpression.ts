@@ -8,6 +8,8 @@ import { string } from './string';
 import { referenceOrInvocation } from './variableOrInvocation';
 import { _import } from './import';
 import { objectLiteral } from './objectLiteral';
+import { splat } from './splat';
+import { arrayLiteral } from './arrayLiteral';
 
 export function getSingularExpression(
   source: SourceFile,
@@ -15,7 +17,9 @@ export function getSingularExpression(
 ): Expression | undefined {
   return (
     objectLiteral(context, source) ||
+    arrayLiteral(source, context) ||
     not(source, context) ||
+    splat(source, context) ||
     literalKeyword(source, context) ||
     grouping(source, context) ||
     number(source, context) ||
