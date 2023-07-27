@@ -29,7 +29,6 @@ export function readFunc(
   if (source.openParens()) {
     let input;
     while ((input = readVar(source, func))) {
-      func.add(input);
       source.consumeChar(',');
     }
     if (!source.closeParens())
