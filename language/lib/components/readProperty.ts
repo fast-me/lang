@@ -1,8 +1,8 @@
 import { Context, T } from 'constructs';
 import { SourceFile } from '../SourceFile';
-import { readNScalarWithName } from './readNScalar';
-import { readSScalarWithName } from './readSScalar';
 import { readVar } from './readVar';
+import { readSScalarWithName } from './readSScalar';
+import { readNScalarWithName } from './readNScalar';
 
 export function readProperty(
   source: SourceFile,
@@ -25,14 +25,12 @@ export function readProperty(
             description
           );
           _var.type.name = _var.name;
-          _var.type.sscalar = s;
         }
         break;
       case T.num: {
         _var.type.t = T.nscalar;
         const n = readNScalarWithName(source, context, _var.name, description);
         _var.type.name = _var.name;
-        _var.type.nscalar = n;
       }
     }
   }

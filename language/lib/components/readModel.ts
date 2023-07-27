@@ -25,7 +25,7 @@ export function readModel(
     struct
   ) {
     console.log('consume entity');
-  } else if (!context.isRoot) {
+  } else {
     return;
   }
   const description = source.description();
@@ -45,11 +45,11 @@ export function readModel(
   return readModelContents(source, m);
 }
 
-export function readModelContents(
+export function readModelContents<T extends Model = Model>(
   source: SourceFile,
-  m: Model,
+  m: T,
   _interface: boolean = false
-): Model | undefined {
+): T | undefined {
   if (!source.openClosure())
     return source.addError(`Expected closure start in concept`);
   while (!source.closeClosure()) {

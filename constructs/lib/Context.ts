@@ -25,6 +25,7 @@ export type InitContext = {
   name: string;
   description?: string;
   parent?: Context;
+  root?: boolean;
 };
 
 export class Context {
@@ -39,20 +40,14 @@ export class Context {
     if (this.name === 'root') return '';
     return `${this.parent?.qualifiedName ?? ''}.${this.name}`;
   }
-  get isRoot() {
-    return this.name === 'root';
-  }
-  constructor({ name, parent, description }: InitContext) {
+  isRoot?: boolean;
+  constructor({ name, parent, description, root }: InitContext) {
     this.parent = parent;
     this.name = name;
     this.description = description;
-    if (this.isRoot) {
-      this.declareRootVars();
+    if (root) {
+      this.isRoot = true;
     }
-  }
-
-  private declareRootVars() {
-    this.vars.push();
   }
 
   add(def: Definition) {

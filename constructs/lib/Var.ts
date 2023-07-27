@@ -24,7 +24,7 @@ export class Var {
       type: Type.identifier(context),
       value: {
         type: 'invocation',
-        fn: { name: 'newIdentifier', properties: [] },
+        fn: { name: 'identifier.new' },
         inputs: [],
       },
     });

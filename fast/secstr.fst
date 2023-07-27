@@ -3,7 +3,7 @@ const argon2 = import(argon2) {
   fn async verify(hash, str): bool
 }
 
-behavior hashed {
+sscalar hashed {
   fn db-serialize() {
     argon2.hash(this)
   }

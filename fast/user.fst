@@ -47,6 +47,7 @@ struct address {
   city
   state
   country
-  zip
-    .regex /\d+/
+  zip {
+    regex = /\d+/
+  }
 }

@@ -5,6 +5,7 @@ import { readVar } from './readVar';
 import { readType } from './readType';
 
 const FnRegex = /fn /y;
+const FnNameRegex = /[a-zA-Z0-9\-=+*_/&%$]+/y;
 
 export function readFunc(
   source: SourceFile,
@@ -16,7 +17,7 @@ export function readFunc(
   if (!source.consume(FnRegex)) return undefined;
   const async = source.consumeWord('async');
   source.description();
-  const name = source.name();
+  const name = source.consume(FnNameRegex)?.[0];
   if (nameRequired && !name)
     return source.addError(`Expected Identifier for Fn declaration`);
   const func = new Func({

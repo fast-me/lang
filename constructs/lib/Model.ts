@@ -1,6 +1,7 @@
 import { Context, InitContext } from './Context';
 import { Func } from './Function';
 import { Relationship } from './Relationship';
+import { Type } from './Type';
 import { Var } from './Var';
 
 export interface Model extends Context {
@@ -16,6 +17,12 @@ export interface Model extends Context {
 export type ModelInit = Partial<Model> & InitContext & { parent: Context };
 
 export class Model extends Context {
+  get qualifiedName() {
+    return (
+      (this.parent.qualifiedName ? this.parent.qualifiedName + '.' : '') +
+      this.name
+    );
+  }
   constructor({
     inherits = [],
     alias = [],
@@ -31,5 +38,14 @@ export class Model extends Context {
     this.staticFunctions = staticFunctions;
     this.staticProperties = staticProperties;
     this.parent.add(this);
+    // @ts-expect-error ts sucks
+    if (this.constructor.name === 'Model' || this.struct) {
+      this.vars.push(
+        new Var({
+          name: 'id',
+          type: Type.identifier(this.parent.root),
+        })
+      );
+    }
   }
 }

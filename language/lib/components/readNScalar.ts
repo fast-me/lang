@@ -1,6 +1,7 @@
 import { Context, NScalar } from 'constructs';
 import { SourceFile } from '../SourceFile';
 import { Literal, readLiteral } from './readLiteral';
+import { readModelContents } from './readModel';
 
 const NScalarLiteral: Literal = {
   name: 'nscalar',
@@ -21,17 +22,19 @@ export function readNScalar(source: SourceFile, context: Context) {
   source.consumeDescription();
   return readNScalarWithName(source, context, name, description);
 }
-
 export function readNScalarWithName(
   source: SourceFile,
   context: Context,
   name: string,
   description?: string
 ) {
-  return new NScalar({
-    ...readLiteral(NScalarLiteral, source),
-    context,
-    name,
-    description,
-  });
+  return readModelContents(
+    source,
+    new NScalar({
+      ...readLiteral(NScalarLiteral, source),
+      context,
+      name,
+      description,
+    })
+  );
 }
