@@ -18,18 +18,13 @@ export function readProperty(
       case T.str:
         {
           _var.type.t = T.sscalar;
-          const s = readSScalarWithName(
-            source,
-            context,
-            _var.name,
-            description
-          );
+          readSScalarWithName(source, context, _var.name, description);
           _var.type.name = _var.name;
         }
         break;
       case T.num: {
         _var.type.t = T.nscalar;
-        const n = readNScalarWithName(source, context, _var.name, description);
+        readNScalarWithName(source, context, _var.name, description);
         _var.type.name = _var.name;
       }
     }

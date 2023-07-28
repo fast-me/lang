@@ -192,6 +192,22 @@ export class SourceFile {
     return this.consumeFloat() || this.consumeInt();
   }
 
+  tokens: {
+    line: number;
+    startChar: number;
+    length: number;
+    tokenType:
+      | 'property'
+      | 'struct'
+      | 'model'
+      | 'nscalar'
+      | 'sscalar'
+      | 'enum'
+      | 'func'
+      | 'interface';
+    tokenModifiers: ['static', 'abstract'];
+  }[] = [];
+
   description(): string | undefined {
     if (this.pendingDescription) return this.pendingDescription;
     const result = this.consume(DescriptionRegex);

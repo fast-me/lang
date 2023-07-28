@@ -1,0 +1,25 @@
+{
+  "name": "fast",
+  "displayName": "Fast",
+  "description": "Language support for Fast",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "fast",
+      "aliases": ["Fast", "fast"],
+      "extensions": [".fst"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "fast",
+      "scopeName": "source.fs",
+      "path": "./syntaxes/fast.tmLanguage.json"
+    }]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "comments": {
+    // symbol used for single line comment. Remove this entry if your language does not support line comments
+    "lineComment": "//",
+    // symbols used for start and end a block comment. Remove this entry if your language does not support block comments
+    "blockComment": ["/*", "*/"]
+  },
+  // symbols used as brackets
+  "brackets": [
+    ["${", "}"],
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"],
+    ["<", ">"]
+  ],
+  // symbols that are auto closed when typing
+  "autoClosingPairs": [
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"],
+    ["\"", "\""],
+    ["'", "'"],
+    {
+      "open": "/**",
+      "close": " */",
+      "notIn": ["string"]
+    },
+    {
+      "open": "'",
+      "close": "'",
+      "notIn": ["string", "comment"]
+    },
+    {
+      "open": "\"",
+      "close": "\"",
+      "notIn": ["string"]
+    }
+  ],
+  // symbols that can be used to surround a selection
+  "surroundingPairs": [
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"],
+    ["\"", "\""],
+    ["'", "'"]
+  ],
+  "folding": {
+    "markers": {
+      "start": "^\\s*//\\s*#?region\\b",
+      "end": "^\\s*//\\s*#?endregion\\b"
+    }
+  },
+  "wordPattern": {
+    "pattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\@\\~\\!\\%\\^\\&\\*\\(\\)\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>/\\?\\s]+)"
+  },
+  "indentationRules": {
+    "decreaseIndentPattern": {
+      "pattern": "^((?!.*?/\\*).*\\*/)?\\s*[\\}\\]].*$"
+    },
+    "increaseIndentPattern": {
+      "pattern": "^((?!//).)*(\\{([^}\"'`/]*|(\\t|[ ])*//.*)|\\([^)\"'`/]*|\\[[^\\]\"'`/]*)$"
+    },
+    // e.g.  * ...| or */| or *-----*/|
+    "unIndentedLinePattern": {
+      "pattern": "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$|^(\\t|[ ])*[ ]\\*/\\s*$|^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$"
+    }
+  },
+  "onEnterRules": [
+    {
+      // e.g. /** | */
+      "beforeText": {
+        "pattern": "^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$"
+      },
+      "afterText": {
+        "pattern": "^\\s*\\*/$"
+      },
+      "action": {
+        "indent": "indentOutdent",
+        "appendText": " * "
+      }
+    },
+    {
+      // e.g. /** ...|
+      "beforeText": {
+        "pattern": "^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$"
+      },
+      "action": {
+        "indent": "none",
+        "appendText": " * "
+      }
+    },
+    {
+      // e.g.  * ...|
+      "beforeText": {
+        "pattern": "^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$"
+      },
+      "previousLineText": {
+        "pattern": "(?=^(\\s*(/\\*\\*|\\*)).*)(?=(?!(\\s*\\*/)))"
+      },
+      "action": {
+        "indent": "none",
+        "appendText": "* "
+      }
+    },
+    {
+      "beforeText": {
+        "pattern": "^(\\t|[ ])*[ ]\\*/\\s*$"
+      },
+      "action": {
+        "indent": "none",
+        "removeText": 1
+      }
+    },
+    {
+      // e.g.  *-----*/|
+      "beforeText": {
+        "pattern": "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$"
+      },
+      "action": {
+        "indent": "none",
+        "removeText": 1
+      }
+    },
+    {
+      "beforeText": {
+        "pattern": "^\\s*(\\bcase\\s.+:|\\bdefault:)$"
+      },
+      "afterText": {
+        "pattern": "^(?!\\s*(\\bcase\\b|\\bdefault\\b))"
+      },
+      "action": {
+        "indent": "indent"
+      }
+    },
+    {
+      // Decrease indentation after single line if/else if/else, for, or while
+      "previousLineText": "^\\s*(((else ?)?if|for|while)\\s*\\(.*\\)\\s*|else\\s*)$",
+      // But make sure line doesn't have braces or is not another if statement
+      "beforeText": "^\\s+([^{i\\s]|i(?!f\\b))",
+      "action": {
+        "indent": "outdent"
+      }
+    }
+  ]
+}
