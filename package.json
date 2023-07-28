@@ -1,24 +1,25 @@
 {
-  "name": "lang",
-  "module": "index.ts",
-  "type": "module",
-  "scripts": {
-    "watch": "bun --watch index.ts"
+  "name": "fast",
+  "displayName": "Fast",
+  "description": "Language support for Fast",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.80.0"
   },
-  "devDependencies": {
-    "@types/lodash": "^4.14.195",
-    "@types/pluralize": "^0.0.29",
-    "bun-types": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "change-case": "^4.1.2",
-    "generator-code": "^1.7.7",
-    "lodash": "^4.17.21",
-    "pluralize": "^8.0.0",
-    "title-case": "^3.0.3",
-    "yo": "^4.3.1"
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "fast",
+      "aliases": ["Fast", "fast"],
+      "extensions": [".fst"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "fast",
+      "scopeName": "source.fs",
+      "path": "./syntaxes/fast.tmLanguage.json"
+    }]
   }
 }
