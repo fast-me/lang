@@ -1,12 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-  "name": "Fast",
+  "name": "fast",
   "scopeName": "source.fst",
-  "version": "https://github.com/microsoft/TypeScript-TmLanguage/commit/8c7482b94b548eab56da64dbfb30b82589b3f747",
   "patterns": [
-    {
-      "include": "#directives"
-    },
     {
       "include": "#statements"
     },
@@ -139,7 +135,7 @@
         },
         {
           "name": "keyword.control.switch.fst",
-          "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(case|default|switch)(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+          "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(case|defaul|switch)(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
         },
         {
           "include": "#if-statement"
@@ -5223,49 +5219,6 @@
       },
       "end": "(?=^)",
       "contentName": "comment.line.double-slash.fst"
-    },
-    "directives": {
-      "name": "comment.line.triple-slash.directive.fst",
-      "begin": "^(///)\\s*(?=<(reference|amd-dependency|amd-module)(\\s+(path|types|no-default-lib|lib|name|resolution-mode)\\s*=\\s*((\\'([^\\'\\\\]|\\\\.)*\\')|(\\\"([^\\\"\\\\]|\\\\.)*\\\")|(\\`([^\\`\\\\]|\\\\.)*\\`)))+\\s*/>\\s*$)",
-      "beginCaptures": {
-        "1": {
-          "name": "punctuation.definition.comment.fst"
-        }
-      },
-      "end": "(?=$)",
-      "patterns": [
-        {
-          "name": "meta.tag.fst",
-          "begin": "(<)(reference|amd-dependency|amd-module)",
-          "beginCaptures": {
-            "1": {
-              "name": "punctuation.definition.tag.directive.fst"
-            },
-            "2": {
-              "name": "entity.name.tag.directive.fst"
-            }
-          },
-          "end": "/>",
-          "endCaptures": {
-            "0": {
-              "name": "punctuation.definition.tag.directive.fst"
-            }
-          },
-          "patterns": [
-            {
-              "name": "entity.other.attribute-name.directive.fst",
-              "match": "path|types|no-default-lib|lib|name|resolution-mode"
-            },
-            {
-              "name": "keyword.operator.assignment.fst",
-              "match": "="
-            },
-            {
-              "include": "#string"
-            }
-          ]
-        }
-      ]
     },
     "docblock": {
       "patterns": [

@@ -1,25 +1,116 @@
 {
   "name": "fast",
   "displayName": "Fast",
+  "module": "index.fst",
+  "type": "module",
   "description": "Language support for Fast",
-  "version": "0.0.1",
   "engines": {
-    "vscode": "^1.80.0"
+    "vscode": "*"
   },
   "categories": [
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "fast",
-      "aliases": ["Fast", "fast"],
-      "extensions": [".fst"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "fast",
-      "scopeName": "source.fs",
-      "path": "./syntaxes/fast.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "fast",
+        "aliases": [
+          "Fast",
+          "fast"
+        ],
+        "extensions": [
+          ".fst",
+          ".ark"
+        ],
+        "configuration": "./vscode/language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "fast",
+        "scopeName": "source.fst",
+        "path": "./vscode/fast.tmLanguage.json",
+        "unbalancedBracketScopes": [
+          "keyword.operator.relational",
+          "storage.type.function.arrow",
+          "keyword.operator.bitwise.shift",
+          "meta.brace.angle",
+          "punctuation.definition.tag",
+          "keyword.operator.assignment.compound.bitwise.fst"
+        ],
+        "tokenTypes": {
+          "meta.template.expression": "other",
+          "meta.template.expression string": "string",
+          "meta.template.expression comment": "comment",
+          "entity.name.type.instance.jsdoc": "other",
+          "entity.name.function.tagged-template": "other",
+          "meta.import string.quoted": "other",
+          "variable.other.jsdoc": "other"
+        }
+      },
+      {
+        "scopeName": "documentation.injection.fst",
+        "path": "./vscode/docs.fst.injection.tmLanguage.json",
+        "injectTo": [
+          "source.fst"
+        ]
+      }
+    ],
+    "semanticTokenScopes": [
+      {
+        "language": "fast",
+        "scopes": {
+          "property": [
+            "variable.other.property.fst"
+          ],
+          "property.readonly": [
+            "variable.other.constant.property.fst"
+          ],
+          "variable": [
+            "variable.other.readwrite.fst"
+          ],
+          "variable.readonly": [
+            "variable.other.constant.object.fst"
+          ],
+          "function": [
+            "entity.name.function.fst"
+          ],
+          "namespace": [
+            "entity.name.type.module.fst"
+          ],
+          "variable.defaultLibrary": [
+            "support.variable.fst"
+          ],
+          "function.defaultLibrary": [
+            "support.function.fst"
+          ]
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "fast",
+        "path": "./vscode/fast.code-snippets"
+      }
+    ]
+  },
+  "scripts": {
+    "watch": "bun --watch index.ts"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.195",
+    "@types/pluralize": "^0.0.29",
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "change-case": "^4.1.2",
+    "generator-code": "^1.7.7",
+    "lodash": "^4.17.21",
+    "pluralize": "^8.0.0",
+    "title-case": "^3.0.3",
+    "yo": "^4.3.1"
   }
 }
