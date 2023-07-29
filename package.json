@@ -4,6 +4,12 @@
   "module": "index.fst",
   "type": "module",
   "description": "Language support for Fast",
+  "workspaces": {
+    "packages": [
+      "./lsp",
+      "./lsp/client"
+    ]
+  },
   "engines": {
     "vscode": "*"
   },
@@ -95,16 +101,21 @@
     ]
   },
   "scripts": {
-    "watch": "bun --watch index.ts"
+    "watch": "bun --watch index.ts",
+    "vscode:prepublish": "bun run vscode:compile",
+    "vscode:compile": "bun run tsc -p ./lsp/client/tsconfig.json",
+    "vscode:client:watch": "bun run tsc --watch -p ./lsp/client/tsconfig.json",
+    "lint": "eslint ./client/src ./server/src --ext .ts,.tsx",
+    "test": "sh ./scripts/e2e.sh"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.195",
+    "@types/mocha": "^10.0.1",
     "@types/pluralize": "^0.0.29",
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "typescript": "^5.1.6"
   },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
+  "peerDependencies": {},
   "dependencies": {
     "change-case": "^4.1.2",
     "generator-code": "^1.7.7",
