@@ -8,10 +8,7 @@
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceRoot}"],
       "outFiles": ["${workspaceRoot}/lsp/client/out/**/*.js"],
-      "preLaunchTask": {
-        "type": "npm",
-        "script": "vscode:client:watch"
-      }
+      "preLaunchTask": "Watch VSCode Client"
     },
     {
       "name": "Language Server E2E Test",
