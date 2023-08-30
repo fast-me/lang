@@ -11,7 +11,7 @@ View the language in the /fast directory. Language has the `.fst` and `.ark` ext
 ## Run it
 
 ```
-bun run dev
+bun run watch
 ```
 
 Observe output in fast/output
@@ -44,6 +44,5 @@ Observe output in fast/output
 ## Endgame
 
 - Deploy the Fast language, apps, and ecosystem
-
 
 - As man's words are carried by the air they breathe, so shall they be by fast
