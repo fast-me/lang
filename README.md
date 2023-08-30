@@ -40,3 +40,10 @@ Observe output in fast/output
 - AST compilation into platform specific code (Backend, Frontend)
 - Syntax highlighting
 - IDE support
+
+## Endgame
+
+- Deploy the Fast language, apps, and ecosystem
+
+
+- As man's words are carried by the air they breathe, so shall they be by fast
